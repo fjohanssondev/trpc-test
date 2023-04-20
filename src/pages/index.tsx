@@ -1,6 +1,7 @@
 import { Inter } from 'next/font/google'
 import { api } from '@/utils/trpc'
 import Form from '@/components/Form'
+import Post from '@/components/Post'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,14 +15,8 @@ export default function Home() {
         <h1 className="text-6xl text-slate-300 font-bold">Guestbook</h1>
         <div className='grid md:grid-cols-2 gap-24 mt-14'>
           <section>
-            {posts?.length! > 0 ? posts?.map(({ id, title, content, createdAt }) => (
-              <article className='border-2 border-slate-600 rounded-sm p-4' key={id}>
-                <div className='mb-2'>
-                  <h3 className='text-slate-200 font-semibold'>{title}</h3>
-                  <p className='text-slate-300 text-sm'>{content}</p>
-                </div>
-                <span className='text-slate-500 italic text-xs'>{new Date(createdAt).toDateString()}</span>
-              </article>
+            {posts?.length! > 0 ? posts?.map((post) => (
+              <Post key={post.id} {...post} />
             )) : (
               <h2 className='text-2xl text-slate-400'>The Guestbook is empty :(</h2>
             )}
